@@ -9,6 +9,8 @@ class TasksScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           //bringing up a sliding container
+          showModalBottomSheet(
+              context: context, builder: (context) => Container());
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(
