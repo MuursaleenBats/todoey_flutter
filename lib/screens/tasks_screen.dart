@@ -1,22 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter/models/task.dart';
+import 'package:todoey_flutter/models/tasks_data.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/tasks_list.dart';
+import 'package:provider/provider.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [];
-  void addTasks(String name) {
-    setState(() {
-      tasks.add(Task(name: name));
-    });
-    Navigator.pop(context);
-  }
-
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +15,12 @@ class _TasksScreenState extends State<TasksScreen> {
           showModalBottomSheet(
               context: context,
               builder: (context) => AddTasksScreen(
-                    addTasks: addTasks,
+                    addTasks: (String name) {
+                      // setState(() {
+                      //   tasks.add(Task(name: name));
+                      // });
+                      Navigator.pop(context);
+                    },
                   ));
         },
         backgroundColor: Colors.lightBlueAccent,
@@ -66,7 +59,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  "${tasks.length} Tasks",
+                  "${Provider.of<TaskData>(context).tasks.length} Tasks",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -79,7 +72,7 @@ class _TasksScreenState extends State<TasksScreen> {
             child: Container(
               child: Padding(
                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: TasksList(tasks),
+                child: TasksList(),
               ),
               height: 300.0,
               decoration: BoxDecoration(
