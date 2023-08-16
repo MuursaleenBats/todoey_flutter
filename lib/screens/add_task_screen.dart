@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/tasks_data.dart';
 
 class AddTasksScreen extends StatefulWidget {
-  AddTasksScreen({required this.addTasks});
-  final Function addTasks;
-
   @override
   State<AddTasksScreen> createState() => _AddTasksScreenState();
 }
@@ -48,7 +47,9 @@ class _AddTasksScreenState extends State<AddTasksScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  widget.addTasks(taskTitle);
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(taskTitle);
+                  Navigator.pop(context);
                 },
                 child: Text(
                   "Add",
