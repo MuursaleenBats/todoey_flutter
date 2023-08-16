@@ -14,10 +14,10 @@ class TasksList extends StatelessWidget {
                 isChecked: taskData.tasks[index].isDone,
                 title: taskData.tasks[index].name,
                 toggleCheckboxState: (bool checkboxState) {
-                  // setState(() {
-                  //   Provider.of<TaskData>(context).tasks[index].isDone =
-                  //       checkboxState;
-                  // });
+                  taskData.toggleCheckbox(index, checkboxState);
+                },
+                longPressCallback: () {
+                  taskData.deleteTask(taskData.tasks[index]);
                 },
               );
             },
